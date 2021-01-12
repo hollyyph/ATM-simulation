@@ -1,7 +1,7 @@
 # import Tkinter # for GUI
-import time
+from time import time, ctime
 from getpass import getpass
-from PIL import image
+from PIL import Image, ImageDraw, ImageFont
 
 # Dictionary
 cards = list()
@@ -34,6 +34,17 @@ taxBill = "3674054612990005"
 taxBillName = "Hollyana PH"
 taxBillAmount = 12400000
 taxBillPeriod = "2021"
+
+t = time()
+newPic = Image.new('RGB', (2000,4000), color = (255, 255, 255))
+fnt = ImageFont.truetype('fake-receipt.ttf', 75)
+resi = ImageDraw.Draw(newPic)
+name = "AAAAAA"
+resi.text((500,2000), name, fill=(0,0,0), font=fnt)
+resi.text((500,2400), name, fill=(0,0,0), font=fnt)
+resi.text((500,2800), name, fill=(0,0,0), font=fnt)
+resi.text((500,3200), ctime(t), fill=(0,0,0), font=fnt)
+newPic.show()
 
 class Card :
 
@@ -129,10 +140,25 @@ while (powerOn):
                     # Account Information
                     print(" ")
                     time.sleep(0.5)
+                    stringPrint = '''
+                    Information Menu
+                    Owner Name: {}
+                    Card Number: {}
+                    Balance: {}
+                    '''.format(cardName, cardNumber, cardBalance)
                     print("Information Menu")
                     print("Owner Name: ", cardName)
                     print("Card Number: ", cardNumber)
                     print("Balance: ", cardBalance)
+
+                    newPic = Image.new('RGB', (2000,4000), color = (255, 255, 255))
+                    fnt = ImageFont.truetype('fake-receipt.ttf', 75)
+                    resi = ImageDraw.Draw(newPic)
+                    name = "AAAAAA"
+                    resi.text((500,1600), "Bank Grizzly", fill=(0,0,0), font=fnt)
+                    resi.text((500,2000), stringPrint, fill=(0,0,0), font=fnt)
+                    resi.text((500,3200), ctime(t), fill=(0,0,0), font=fnt)
+                    newPic.show()
 
                 elif (inputMenu == 2):
                     # Transfer
@@ -236,7 +262,7 @@ while (powerOn):
     Name: {}
     Amount: Rp {}
     Period: {}
-    
+
                         '''.format(educationBill_2, educationBillName_2, educationBillAmount_2, educationBillPeriod_2))
                         
                             confirm = str(input("Are you sure to pay now? (Y or N) "))
