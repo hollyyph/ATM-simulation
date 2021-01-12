@@ -1,5 +1,6 @@
 # import Tkinter # for GUI
-from time import time, ctime
+import time
+from time import ctime
 from getpass import getpass
 from PIL import Image, ImageDraw, ImageFont
 
@@ -35,16 +36,6 @@ taxBillName = "Hollyana PH"
 taxBillAmount = 12400000
 taxBillPeriod = "2021"
 
-t = time()
-newPic = Image.new('RGB', (2000,4000), color = (255, 255, 255))
-fnt = ImageFont.truetype('fake-receipt.ttf', 75)
-resi = ImageDraw.Draw(newPic)
-name = "AAAAAA"
-resi.text((500,2000), name, fill=(0,0,0), font=fnt)
-resi.text((500,2400), name, fill=(0,0,0), font=fnt)
-resi.text((500,2800), name, fill=(0,0,0), font=fnt)
-resi.text((500,3200), ctime(t), fill=(0,0,0), font=fnt)
-newPic.show()
 
 class Card :
 
@@ -141,23 +132,23 @@ while (powerOn):
                     print(" ")
                     time.sleep(0.5)
                     stringPrint = '''
-                    Information Menu
-                    Owner Name: {}
-                    Card Number: {}
-                    Balance: {}
-                    '''.format(cardName, cardNumber, cardBalance)
-                    print("Information Menu")
-                    print("Owner Name: ", cardName)
-                    print("Card Number: ", cardNumber)
-                    print("Balance: ", cardBalance)
 
-                    newPic = Image.new('RGB', (2000,4000), color = (255, 255, 255))
+Information Menu
+
+Owner Name: {}
+Card Number: {}
+Balance: {}
+
+                    '''.format(cardName, cardNumber, cardBalance)
+                    print(stringPrint)
+                    t = time.time()
+                    newPic = Image.new('RGB', (2000,2000), color = (255, 255, 255))
                     fnt = ImageFont.truetype('fake-receipt.ttf', 75)
                     resi = ImageDraw.Draw(newPic)
                     name = "AAAAAA"
-                    resi.text((500,1600), "Bank Grizzly", fill=(0,0,0), font=fnt)
-                    resi.text((500,2000), stringPrint, fill=(0,0,0), font=fnt)
-                    resi.text((500,3200), ctime(t), fill=(0,0,0), font=fnt)
+                    resi.text((450,500), "***  Bank Grizzly  ***", fill=(0,0,0), font=fnt)
+                    resi.text((300,600), stringPrint, fill=(0,0,0), font=fnt)
+                    resi.text((300,1300), ctime(t), fill=(0,0,0), font=fnt)
                     newPic.show()
 
                 elif (inputMenu == 2):
@@ -175,12 +166,30 @@ while (powerOn):
                         print(" ")
                         time.sleep(2)
                         cardBalance = cardBalance - inputTransferAmount
-                        print ('''Success Transfer 
-    To Account Number: {}
-    Rp {}
-                        '''.format(inputTransferNum, inputTransferAmount))
-                        time.sleep(0.5)
-                        print ("Card Balance: ", cardBalance)
+                        stringPrint= '''
+Success Transfer 
+
+From Account Number: 
+    {}
+Name: {}
+
+To Account Number: 
+    {}
+Amount: Rp {}
+
+                        '''.format(cardNumber, cardName, inputTransferNum, inputTransferAmount)
+                        print(stringPrint)
+                        t = time.time()
+                        newPic = Image.new('RGB', (2000,2400), color = (255, 255, 255))
+                        fnt = ImageFont.truetype('fake-receipt.ttf', 75)
+                        resi = ImageDraw.Draw(newPic)
+                        name = "AAAAAA"
+                        resi.text((450,500), "***  Bank Grizzly  ***", fill=(0,0,0), font=fnt)
+                        resi.text((300,600), stringPrint, fill=(0,0,0), font=fnt)
+                        resi.text((300,1500), '''Card Balance: {}'''.format(cardBalance), fill=(0,0,0), font=fnt)
+                        resi.text((300,1750), ctime(t), fill=(0,0,0), font=fnt)
+
+                        newPic.show()
 
                 elif (inputMenu == 3):
                     # Payment
@@ -194,25 +203,36 @@ while (powerOn):
                     time.sleep(0.5)
                     print("3. Tax")            
                     time.sleep(0.5)
-                    print("4. E-commerce")
-                    time.sleep(0.5)
 
                     inputPayment = int(input('''Input your Menu choice (by number) : 
     '''))
                     print(" ")
                     if (inputPayment == 1):
-                        print ('''Electrical Payment 
-    Payment Number: {}
-    Company: PLN
-    Name: {}
-    Amount: Rp {}
-    Period: {}
+                        stringPrint = '''
+Electrical Payment 
+
+Payment Number: {}
+Company: PLN
+Name: {}
+Amount: Rp {}
+Period: {}
     
-                        '''.format(electricalBill, electricalBillName, electricalBillAmount, electricalBillPeriod))
+                        '''.format(electricalBill, electricalBillName, electricalBillAmount, electricalBillPeriod)
                         confirm = str(input("Are you sure to pay now? (Y or N) "))
                         print(" ")
                         if (confirm == "Y" or confirm == "y"):
                             cardBalance = cardBalance - electricalBillAmount
+                            time.sleep(0.5)
+                    
+                            print(stringPrint)
+                            t = time.time()
+                            newPic = Image.new('RGB', (2000,2400), color = (255, 255, 255))
+                            fnt = ImageFont.truetype('fake-receipt.ttf', 75)
+                            resi = ImageDraw.Draw(newPic)
+                            resi.text((450,500), "***  Bank Grizzly  ***", fill=(0,0,0), font=fnt)
+                            resi.text((300,600), stringPrint, fill=(0,0,0), font=fnt)
+                            resi.text((300,2000), ctime(t), fill=(0,0,0), font=fnt)
+                            newPic.show()
                             time.sleep(1)
                             print ("Your electrical payment succeed" )
                             time.sleep(0.5)
@@ -234,14 +254,16 @@ while (powerOn):
     '''))
                         print(" ")
                         if (inputEducation == 1):
-                            print ('''Collage Education Payment 
-    Payment Number: {}
-    Company: ITB
-    Name: {}
-    Amount: Rp {}
-    Period: {}
+                            stringPrint = '''
+Collage Education Payment 
+
+Payment Number: {}
+Company: ITB
+Name: {}
+Amount: Rp {}
+Period: {}
     
-                        '''.format(educationBill_1, educationBillName_1, educationBillAmount_1, educationBillPeriod_1))
+                        '''.format(educationBill_1, educationBillName_1, educationBillAmount_1, educationBillPeriod_1)
                         
                             confirm = str(input("Are you sure to pay now? (Y or N) "))
                             print(" ")
@@ -250,20 +272,32 @@ while (powerOn):
                                 time.sleep(1)
                                 print ("Your education payment succeed" )
                                 time.sleep(0.5)
+                                print(stringPrint)
+                                t = time.time()
+                                newPic = Image.new('RGB', (2000,2400), color = (255, 255, 255))
+                                fnt = ImageFont.truetype('fake-receipt.ttf', 75)
+                                resi = ImageDraw.Draw(newPic)
+                                resi.text((450,500), "***  Bank Grizzly  ***", fill=(0,0,0), font=fnt)
+                                resi.text((300,600), stringPrint, fill=(0,0,0), font=fnt)
+                                resi.text((300,2000), ctime(t), fill=(0,0,0), font=fnt)
+                                newPic.show()
+                                
                                 print ("Your card balance: ", cardBalance )
                             elif (confirm == "N" or confirm == "n"):
                                 time.sleep(1)
                                 print ("Your education payment has been canceled" )
 
                         elif (inputEducation == 2):
-                            print ('''School Education Payment 
-    Payment Number: {}
-    Company: SMAK PENABUR Bintaro Jaya
-    Name: {}
-    Amount: Rp {}
-    Period: {}
+                            stringPrint = '''
+School Education Payment 
 
-                        '''.format(educationBill_2, educationBillName_2, educationBillAmount_2, educationBillPeriod_2))
+Payment Number: {}
+Company: SMAK PENABUR Bintaro Jaya
+Name: {}
+Amount: Rp {}
+Period: {}
+
+                        '''.format(educationBill_2, educationBillName_2, educationBillAmount_2, educationBillPeriod_2)
                         
                             confirm = str(input("Are you sure to pay now? (Y or N) "))
                             print(" ")
@@ -272,6 +306,15 @@ while (powerOn):
                                 time.sleep(1)
                                 print ("Your education payment succeed" )
                                 time.sleep(0.5)
+                                print(stringPrint)
+                                t = time.time()
+                                newPic = Image.new('RGB', (2000,2400), color = (255, 255, 255))
+                                fnt = ImageFont.truetype('fake-receipt.ttf', 75)
+                                resi = ImageDraw.Draw(newPic)
+                                resi.text((450,500), "***  Bank Grizzly  ***", fill=(0,0,0), font=fnt)
+                                resi.text((300,600), stringPrint, fill=(0,0,0), font=fnt)
+                                resi.text((300,2000), ctime(t), fill=(0,0,0), font=fnt)
+                                newPic.show()
                                 print ("Your card balance: ", cardBalance )
                             elif (confirm == "N" or confirm == "n"):
                                 time.sleep(1)
@@ -280,13 +323,15 @@ while (powerOn):
                             print("Wrong Input!")
 
                     elif (inputPayment == 3):
-                        print ('''Tax Payment 
-    Payment Number: {}
-    Name: {}
-    Amount: Rp {}
-    Period: {}
+                        stringPrint = '''
+Tax Payment 
+
+Payment Number: {}
+Name: {}
+Amount: Rp {}
+Period: {}
     
-                        '''.format(taxBill, taxBillName, taxBillAmount, taxBillPeriod))
+                        '''.format(taxBill, taxBillName, taxBillAmount, taxBillPeriod)
 
                         confirm = str(input("Are you sure to pay now? (Y or N) "))
                         print(" ")
@@ -295,6 +340,15 @@ while (powerOn):
                             time.sleep(1)
                             print ("Your tax payment succeed" )
                             time.sleep(0.5)
+                            print(stringPrint)
+                            t = time.time()
+                            newPic = Image.new('RGB', (2000,2400), color = (255, 255, 255))
+                            fnt = ImageFont.truetype('fake-receipt.ttf', 75)
+                            resi = ImageDraw.Draw(newPic)
+                            resi.text((450,500), "***  Bank Grizzly  ***", fill=(0,0,0), font=fnt)
+                            resi.text((300,600), stringPrint, fill=(0,0,0), font=fnt)
+                            resi.text((300,2000), ctime(t), fill=(0,0,0), font=fnt)
+                            newPic.show()
                             print ("Your card balance: ", cardBalance )
                         elif (confirm == "N" or confirm == "n"):
                             time.sleep(1)
@@ -308,12 +362,15 @@ while (powerOn):
                     inputWithdraw = int(input('''Amount :
     '''))
                     print(" ")
-                    if (inputWithdraw < cardBalance):
+                    # EDIT SINI
+                    if ((inputWithdraw < cardBalance) and ((cardBalance%50000) == 0)):
                         cardBalance = cardBalance - inputWithdraw
                         time.sleep(1)
                         print ("Success withdraw Rp", inputWithdraw)
                         time.sleep(0.5)
                         print ("Card Balance: ", cardBalance)
+                    elif (cardBalance%50000 != 0):
+                        print ("Harus kelipatan 50000")
 
                     # print("1. Rp100.000 ")
                     # time.sleep(0.5)
